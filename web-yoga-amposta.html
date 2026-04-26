@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Yogashala Particular · Amposta</title>
+<meta name="description" content="Clases particulares de yoga terapéutico en Amposta. 30 años de experiencia con problemas articulares." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="assets/frames/frame-0000.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ RESET ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+/* ============ TOKENS ============ */
+:root{
+  --bg:#0A0A0A;
+  --bg-2:#111;
+  --cream:#F5F0E8;
+  --gold:#C9A961;
+  --sage:#8A9A7B;
+  --muted:rgba(245,240,232,.55);
+  --placeholder:rgba(245,240,232,.32);
+  --serif:'Cormorant Garamond','Fraunces',Georgia,serif;
+  --sans:'Inter',ui-sans-serif,system-ui,sans-serif;
+  --maxw:1200px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+body{
+  background:var(--bg);
+  color:var(--cream);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.65;
+  letter-spacing:.005em;
+  overflow-x:hidden;
+}
+::selection{background:var(--gold);color:var(--bg)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#000}
+::-webkit-scrollbar-thumb{background:#222;border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold)}
+
+h1,h2,h3,h4{font-family:var(--serif);font-weight:300;letter-spacing:-.015em;line-height:1.05}
+.eyebrow{font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold)}
+.placeholder-copy{color:var(--placeholder);font-style:italic}
+.italic-serif{font-family:var(--serif);font-style:italic;font-weight:400}
+
+.container{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+@media(min-width:768px){.container{padding:0 48px}}
+
+/* ============ NAV ============ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  padding:18px 0;
+  transition:background .5s var(--ease),backdrop-filter .5s var(--ease),border-color .5s var(--ease),padding .5s var(--ease);
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  padding:12px 0;
+  background:rgba(10,10,10,.72);
+  backdrop-filter:saturate(160%) blur(14px);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);
+  border-bottom-color:rgba(245,240,232,.06);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:inline-flex;align-items:center;gap:12px}
+.brand img{height:42px;width:auto;display:block;filter:brightness(0) invert(1);opacity:.95;transition:height .5s var(--ease)}
+.nav.scrolled .brand img{height:34px}
+.nav-links{display:none;gap:36px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+.nav-links a{transition:color .4s var(--ease)}
+.nav-links a:hover{color:var(--cream)}
+@media(min-width:1000px){.nav-links{display:flex}}
+.nav-cta{
+  font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+  border:1px solid rgba(201,169,97,.6);padding:11px 20px;
+  transition:background .4s var(--ease),color .4s var(--ease),border-color .4s var(--ease);
+  white-space:nowrap;
+}
+.nav-cta:hover{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+@media(max-width:520px){.nav-cta{padding:10px 14px;font-size:10px;letter-spacing:.22em}}
+
+/* ============ HERO (canvas frame-by-frame, técnica Apple) ============ */
+.scroll-video-hero{
+  position:relative;
+  height:420vh;     /* 160 frames sobre 420vh ≈ 2.6vh/frame: scroll suave */
+}
+.scroll-video-sticky{
+  position:sticky;top:0;height:100vh;width:100%;overflow:hidden;background:#000;
+}
+#heroCanvas{
+  position:absolute;inset:0;width:100%;height:100%;display:block;
+  background:#000;
+}
+.hero-fallback{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 60%,#1a1a1a 0%,#0A0A0A 70%),linear-gradient(180deg,#0A0A0A,#000);
+}
+.hero-fallback::after{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 30% 40%,rgba(201,169,97,.08),transparent 40%),
+    radial-gradient(circle at 70% 70%,rgba(138,154,123,.05),transparent 50%);
+}
+.hero-overlay{
+  position:absolute;inset:0;z-index:2;
+  background:linear-gradient(180deg,rgba(0,0,0,.20) 0%,rgba(0,0,0,.05) 35%,rgba(0,0,0,.55) 100%);
+}
+.hero-content{
+  position:absolute;inset:0;z-index:3;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  padding:0 24px 14vh;text-align:center;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 1.6s var(--ease),transform 1.6s var(--ease);
+}
+.hero-content.in{opacity:1;transform:translateY(0)}
+.hero-title{font-size:clamp(48px,8.5vw,116px);font-weight:300;color:var(--cream);text-wrap:balance;line-height:1}
+.hero-title em{font-style:italic;color:var(--gold);font-weight:400;font-size:.85em;display:block;margin-top:6px}
+.hero-sub{margin-top:24px;font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold)}
+.hero-loading{
+  position:absolute;left:50%;bottom:120px;transform:translateX(-50%);z-index:4;
+  font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:rgba(245,240,232,.4);
+  transition:opacity .6s var(--ease);
+}
+.hero-loading.done{opacity:0;pointer-events:none}
+.hero-scroll-cue{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:4;
+  width:1px;height:48px;
+  background:linear-gradient(180deg,transparent,rgba(245,240,232,.5),transparent);
+  opacity:0;animation:fadeIn 1.4s 1.5s var(--ease) forwards;
+}
+@keyframes fadeIn{to{opacity:1}}
+
+.scroll-progress-bar{
+  position:absolute;bottom:0;left:0;width:100%;height:2px;
+  background:rgba(245,240,232,.06);z-index:3;
+}
+.scroll-progress-fill{height:100%;width:0%;background:var(--gold);transition:width .05s linear}
+
+@media(max-width:768px){
+  .scroll-video-hero{height:100vh}
+  .scroll-video-sticky{position:relative}
+  .hero-content{opacity:1;transform:none;justify-content:center;padding-bottom:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .scroll-video-hero{height:100vh}
+  .scroll-video-sticky{position:relative}
+  .hero-content{opacity:1;transform:none}
+}
+
+/* ============ SECTION BASE ============ */
+section.block{padding:14vh 0;min-height:100vh;display:flex;align-items:center;position:relative}
+section.light{background:var(--cream);color:var(--bg)}
+section.light .placeholder-copy{color:rgba(10,10,10,.4)}
+section.light .eyebrow{color:#9a7d3a}
+.section-head h2{
+  margin-top:24px;
+  font-size:clamp(34px,5.6vw,82px);
+  text-wrap:balance;
+}
+.section-lede{margin-top:28px;max-width:620px;font-size:17px;line-height:1.7}
+
+/* ============ TIMELINE ============ */
+.timeline-section{
+  position:relative;
+  height:600vh;
+  background:var(--bg);
+}
+.timeline-pin{
+  position:sticky;top:0;height:100vh;width:100%;overflow:hidden;
+}
+.timeline-header{
+  position:absolute;left:0;right:0;top:0;z-index:6;
+  padding:calc(env(safe-area-inset-top,0px) + 110px) 0 24px;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,10,10,.95) 0%,rgba(10,10,10,.55) 60%,rgba(10,10,10,0) 100%);
+  transition:opacity .8s var(--ease),transform .8s var(--ease);
+}
+.timeline-header.dim{opacity:0;transform:translateY(-12px)}
+.timeline-header .eyebrow{font-size:10px}
+.timeline-header h2{margin-top:8px;font-size:clamp(22px,3vw,38px);line-height:1;letter-spacing:-.01em}
+.timeline-header h2 em{color:var(--gold);font-style:normal;font-weight:400}
+
+.timeline-line{
+  position:absolute;left:0;right:0;top:50%;height:1px;
+  background:linear-gradient(90deg,transparent 0%,rgba(245,240,232,.18) 8%,rgba(245,240,232,.18) 92%,transparent 100%);
+  z-index:1;
+}
+
+.timeline-track{
+  position:absolute;top:0;left:0;height:100%;
+  display:flex;align-items:center;
+  will-change:transform;
+  padding:0 8vw;
+  z-index:2;
+}
+
+.timeline-card{
+  position:relative;flex-shrink:0;
+  width:88vw;height:100%;
+  display:flex;align-items:center;justify-content:center;
+}
+@media(min-width:640px){.timeline-card{width:60vw}}
+@media(min-width:900px){.timeline-card{width:46vw}}
+@media(min-width:1200px){.timeline-card{width:36vw}}
+
+.tl-marker{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 6px rgba(201,169,97,.08)}
+.tl-year{position:absolute;left:50%;top:22px;transform:translateX(-50%);font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+
+.tl-block{position:absolute;width:80%;max-width:340px;opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.tl-block.in{opacity:1;transform:translateY(0)}
+.tl-block.world{opacity:0;transition-delay:.1s}
+.tl-block.world.in{opacity:.78}
+
+.tl-block.personal{bottom:50%;margin-bottom:56px}
+.tl-block.world{top:50%;margin-top:56px}
+.timeline-card:nth-child(even) .tl-block.personal{bottom:auto;top:50%;margin-top:56px;margin-bottom:0}
+.timeline-card:nth-child(even) .tl-block.world{top:auto;bottom:50%;margin-bottom:56px;margin-top:0}
+
+.tl-img{width:100%;background:#161616;overflow:hidden;position:relative}
+.tl-block.personal .tl-img{aspect-ratio:4/5;max-height:32vh}
+.tl-block.world .tl-img{aspect-ratio:4/3;max-height:20vh;filter:grayscale(1) contrast(.95)}
+.tl-img img{width:100%;height:100%;object-fit:cover;opacity:.95}
+
+.tl-img.empty{background:linear-gradient(160deg,#1a1a1a 0%,#0d0d0d 100%);display:flex;align-items:center;justify-content:center;border:1px solid rgba(245,240,232,.06)}
+.tl-img.empty::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(201,169,97,.06),transparent 60%)}
+.tl-img.empty span{position:relative;z-index:2;font-family:var(--serif);font-size:42px;color:rgba(201,169,97,.45);font-weight:300}
+
+.tl-tag{margin-top:12px;font-size:10px;letter-spacing:.4em;text-transform:uppercase}
+.tl-block.personal .tl-tag{color:var(--gold)}
+.tl-block.world .tl-tag{color:var(--muted)}
+.tl-block h3{margin-top:6px;font-size:22px;color:var(--cream)}
+.tl-block.world h3{font-size:16px;color:rgba(245,240,232,.85)}
+.tl-block p{margin-top:6px;font-size:13px;line-height:1.55}
+.tl-block.personal p{color:var(--placeholder);font-style:italic}
+.tl-block.world p{color:rgba(245,240,232,.45);font-style:italic;font-size:12.5px}
+
+.timeline-cue{position:absolute;bottom:24px;right:32px;z-index:5;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:rgba(245,240,232,.4);display:none}
+@media(min-width:768px){.timeline-cue{display:block}}
+
+/* Móvil */
+@media(max-width:768px){
+  .timeline-section{height:auto;min-height:0}
+  .timeline-pin{position:relative;height:auto}
+  .timeline-header{position:relative;padding:14vh 0 6vh;background:none}
+  .timeline-line{display:none}
+  .timeline-track{position:relative;height:auto;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 24px 14vh;gap:24px;-webkit-overflow-scrolling:touch}
+  .timeline-track::-webkit-scrollbar{display:none}
+  .timeline-card{width:85vw;height:auto;scroll-snap-align:start;flex-direction:column;padding:24px 0}
+  .tl-marker{position:relative;top:auto;left:auto;transform:none;display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .tl-year{position:relative;left:auto;top:auto;transform:none}
+  .tl-block.personal,.tl-block.world,
+  .timeline-card:nth-child(even) .tl-block.personal,
+  .timeline-card:nth-child(even) .tl-block.world{position:relative;top:auto;bottom:auto;margin:0 0 24px;width:100%;max-width:none;opacity:1;transform:none}
+  .tl-block.personal .tl-img,.tl-block.world .tl-img{max-height:none}
+}
+
+/* ============ PHILOSOPHY ============ */
+.philosophy-quote{margin-top:32px;font-size:clamp(34px,5vw,72px);line-height:1.08;font-weight:300;text-wrap:balance}
+.philosophy-grid{margin-top:64px;display:grid;gap:32px;max-width:780px}
+@media(min-width:768px){.philosophy-grid{grid-template-columns:1fr 1fr;gap:48px}}
+.philosophy-grid p{font-size:16px;line-height:1.75;color:rgba(10,10,10,.7);font-style:italic}
+
+/* ============ HER (galería silenciosa, sin título) ============ */
+.her-section{
+  background:var(--bg);
+  padding:18vh 0 16vh;
+  overflow:hidden;
+  position:relative;
+}
+.her-eyebrow{
+  display:flex;align-items:center;gap:18px;
+  margin-bottom:64px;
+}
+.her-eyebrow .line{flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);max-width:140px}
+.her-eyebrow span{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--gold);font-weight:400;letter-spacing:.02em}
+
+.her-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  grid-auto-rows:minmax(120px,auto);
+  gap:16px;
+}
+@media(min-width:768px){.her-grid{gap:24px;grid-auto-rows:minmax(160px,auto)}}
+.her-item{position:relative;overflow:hidden;background:#1a1a1a}
+.her-item img{width:100%;height:100%;object-fit:cover;transition:transform 1.6s var(--ease),filter .8s var(--ease);filter:brightness(.92)}
+.her-item:hover img{transform:scale(1.04);filter:brightness(1)}
+.her-item.g1{grid-column:span 4;grid-row:span 2;aspect-ratio:4/3}
+.her-item.g2{grid-column:span 2;grid-row:span 1;aspect-ratio:1/1}
+.her-item.g3{grid-column:span 2;grid-row:span 1;aspect-ratio:1/1}
+.her-item.g4{grid-column:span 3;grid-row:span 1;aspect-ratio:3/2}
+.her-item.g5{grid-column:span 3;grid-row:span 1;aspect-ratio:3/2}
+@media(max-width:768px){
+  .her-grid{grid-template-columns:repeat(2,1fr)}
+  .her-item.g1{grid-column:span 2;grid-row:span 1;aspect-ratio:4/3}
+  .her-item.g2,.her-item.g3,.her-item.g4,.her-item.g5{grid-column:span 1;grid-row:span 1;aspect-ratio:1/1}
+}
+
+/* ============ FOR WHOM (más VIP) ============ */
+.forwhom-section{position:relative}
+.forwhom-section::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,169,97,.4),transparent);
+}
+.forwhom-meta{
+  display:flex;align-items:center;gap:18px;margin-top:12px;
+  font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);
+}
+.forwhom-meta .dot{width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.profiles{
+  margin-top:96px;
+  display:grid;gap:1px;
+  background:rgba(245,240,232,.08);
+  border-top:1px solid rgba(245,240,232,.08);
+  border-bottom:1px solid rgba(245,240,232,.08);
+}
+@media(min-width:900px){.profiles{grid-template-columns:repeat(3,1fr)}}
+.profile{
+  background:var(--bg);padding:56px 36px;
+  position:relative;
+  transition:background .5s var(--ease);
+}
+.profile:hover{background:#0d0d0d}
+.profile .num{
+  font-family:var(--serif);font-size:14px;color:var(--gold);font-weight:500;
+  letter-spacing:.4em;
+}
+.profile h3{margin-top:24px;font-size:26px;color:var(--cream);line-height:1.2;text-wrap:balance}
+.profile h3 em{color:var(--gold);font-weight:400}
+.profile p{margin-top:24px;font-size:14px;line-height:1.75;color:var(--placeholder);font-style:italic}
+.profile .divider{margin-top:28px;height:1px;width:32px;background:var(--gold);opacity:.5}
+
+.forwhom-quote{
+  margin-top:96px;text-align:center;max-width:900px;margin-left:auto;margin-right:auto;
+}
+.forwhom-quote p{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(22px,2.6vw,32px);line-height:1.4;color:var(--cream);
+}
+.forwhom-quote .sig{
+  margin-top:24px;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);
+}
+
+/* ============ HOW IT WORKS ============ */
+.steps{margin-top:80px;border-top:1px solid rgba(10,10,10,.12)}
+.step{display:flex;flex-direction:column;gap:24px;padding:48px 0;border-bottom:1px solid rgba(10,10,10,.12)}
+@media(min-width:768px){.step{flex-direction:row;align-items:baseline;gap:64px}}
+.step .num{font-family:var(--serif);font-size:64px;color:var(--gold);line-height:.9;flex-shrink:0;width:auto}
+@media(min-width:768px){.step .num{font-size:88px;width:25%}}
+.step h3{font-size:26px;line-height:1.25}
+@media(min-width:768px){.step h3{font-size:32px}}
+.step p{margin-top:14px;max-width:560px;font-size:16px;line-height:1.7;color:rgba(10,10,10,.65);font-style:italic}
+
+.note{
+  margin-top:64px;max-width:680px;
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:22px;line-height:1.45;color:rgba(10,10,10,.85);
+  border-left:1px solid var(--gold);padding-left:22px;
+}
+
+/* ============ FINAL CTA ============ */
+.cta{text-align:center}
+.cta h2{font-size:clamp(40px,6.5vw,96px);max-width:1000px;margin:32px auto 0}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:22px 56px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cream);border:1px solid var(--gold);
+  transition:background .5s var(--ease),color .5s var(--ease),transform .5s var(--ease);
+}
+.btn:hover{background:var(--gold);color:var(--bg);transform:translateY(-2px)}
+.cta .btn{margin-top:72px}
+.cta .small{margin-top:28px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid rgba(245,240,232,.08);padding:80px 0 48px}
+.foot-grid{display:flex;flex-direction:column;gap:36px}
+@media(min-width:768px){.foot-grid{flex-direction:row;align-items:flex-end;justify-content:space-between}}
+.foot-brand img{height:46px;width:auto;filter:brightness(0) invert(1);opacity:.9}
+.foot-loc{margin-top:14px;font-size:14px;color:var(--muted)}
+.foot-right{display:flex;flex-direction:column;gap:12px;font-size:14px}
+@media(min-width:768px){.foot-right{align-items:flex-end}}
+.foot-right a{color:var(--muted);transition:color .4s var(--ease)}
+.foot-right a:hover{color:var(--cream)}
+.foot-right .external{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,240,232,.35)}
+.copy{margin-top:64px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,240,232,.2)}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.delay-1{transition-delay:.08s}
+.reveal.delay-2{transition-delay:.16s}
+.reveal.delay-3{transition-delay:.24s}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand"><img src="assets/logo.png" alt="Yogashala Particular"></a>
+    <div class="nav-links">
+      <a href="#timeline">Trayectoria</a>
+      <a href="#filosofia">Método</a>
+      <a href="#ella">Ella</a>
+      <a href="#para-quien">Para quién</a>
+      <a href="#proceso">Cómo funciona</a>
+    </div>
+    <a href="https://wa.me/34654639006?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20llamada%20de%2015%20minutos%20para%20hablar%20sobre%20clases%20particulares%20de%20yoga." target="_blank" rel="noreferrer" class="nav-cta">Reservar llamada</a>
+  </div>
+</nav>
+
+<!-- ============ HERO SCROLL-VIDEO (canvas frame-by-frame) ============ -->
+<section class="scroll-video-hero" id="top">
+  <div class="scroll-video-sticky">
+    <div class="hero-fallback" id="heroFallback"></div>
+    <canvas id="heroCanvas"></canvas>
+    <div class="hero-overlay"></div>
+    <div class="hero-content" id="heroContent">
+      <h1 class="hero-title">Yogasala<em>Particular</em></h1>
+      <p class="hero-sub">Amposta</p>
+    </div>
+    <div class="hero-loading" id="heroLoading">Cargando · <span id="heroPct">0</span>%</div>
+    <div class="hero-scroll-cue"></div>
+    <div class="scroll-progress-bar"><div class="scroll-progress-fill" id="progressFill"></div></div>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section class="timeline-section" id="timeline">
+  <div class="timeline-pin">
+    <div class="timeline-header" id="timelineHeader">
+      <div class="container">
+        <p class="eyebrow">Trayectoria</p>
+        <h2><em>30</em> años</h2>
+      </div>
+    </div>
+    <div class="timeline-line"></div>
+    <div class="timeline-track" id="timelineTrack"></div>
+    <div class="timeline-cue">Scroll →</div>
+  </div>
+</section>
+
+<!-- ============ PHILOSOPHY ============ -->
+<section class="block light" id="filosofia">
+  <div class="container">
+    <p class="eyebrow reveal">Filosofía y método</p>
+    <h2 class="philosophy-quote reveal delay-1">
+      No enseño posturas.<br/>
+      Enseño a habitar el cuerpo que tienes.
+    </h2>
+    <div class="philosophy-grid">
+      <p class="reveal delay-2 placeholder-copy">
+        Lorem ipsum: una práctica de élite no se mide en asanas avanzadas, sino en la precisión con la que
+        adaptamos cada movimiento a tu articulación, tu historia y tu día.
+      </p>
+      <p class="reveal delay-3 placeholder-copy">
+        Lorem ipsum: treinta años de trabajo terapéutico me han enseñado que el silencio es la parte más
+        exigente. Aquí cada sesión está diseñada solo para ti.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ELLA (galería silenciosa, sin h2) ============ -->
+<section class="her-section" id="ella">
+  <div class="container">
+    <div class="her-eyebrow reveal">
+      <div class="line"></div>
+      <span>Ella</span>
+    </div>
+    <div class="her-grid">
+      <div class="her-item g1 reveal"><img src="assets/foto-web-1.jpg" alt="" loading="lazy"></div>
+      <div class="her-item g2 reveal delay-1"><img src="assets/foto-web-2.jpg" alt="" loading="lazy"></div>
+      <div class="her-item g3 reveal delay-2"><img src="assets/foto-web-3.jpg" alt="" loading="lazy"></div>
+      <div class="her-item g4 reveal delay-1"><img src="assets/foto-web-4.jpg" alt="" loading="lazy"></div>
+      <div class="her-item g5 reveal delay-2"><img src="assets/foto-web-5.jpg" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOR WHOM (más VIP) ============ -->
+<section class="block forwhom-section" id="para-quien">
+  <div class="container">
+    <p class="eyebrow reveal">Selección</p>
+    <h2 class="reveal delay-1">Esto no es para todo el mundo.</h2>
+    <div class="forwhom-meta reveal delay-2">
+      <span>Plazas limitadas</span>
+      <span class="dot"></span>
+      <span>Acceso por entrevista</span>
+      <span class="dot"></span>
+      <span>Trabajo continuado</span>
+    </div>
+
+    <div class="profiles">
+      <div class="profile reveal">
+        <div class="num">01</div>
+        <h3>Articulaciones que necesitan <em>precisión</em>.</h3>
+        <div class="divider"></div>
+        <p>Lorem ipsum: cervicales, lumbares, rodillas, hombros. Trabajo a medida sobre lesiones reales, no clases genéricas adaptadas a la baja.</p>
+      </div>
+      <div class="profile reveal delay-1">
+        <div class="num">02</div>
+        <h3>Quien ya ha probado y busca <em>otra cosa</em>.</h3>
+        <div class="divider"></div>
+        <p>Lorem ipsum: si has pasado por estudios, apps y profesores y sigues sin resultado, probablemente lo que falta no es más práctica, es la práctica correcta.</p>
+      </div>
+      <div class="profile reveal delay-2">
+        <div class="num">03</div>
+        <h3>Agendas exigentes que necesitan <em>discreción</em>.</h3>
+        <div class="divider"></div>
+        <p>Lorem ipsum: profesionales, directivos, deportistas. Un plan que se ajusta a tu calendario, no al revés.</p>
+      </div>
+    </div>
+
+    <div class="forwhom-quote reveal">
+      <p>"Si encajas, lo notarás en los primeros minutos de la llamada. Si no encajas, también."</p>
+      <p class="sig">— Yogashala Particular</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="block light" id="proceso">
+  <div class="container">
+    <p class="eyebrow reveal">Cómo funciona</p>
+    <h2 class="reveal delay-1">Tres pasos. Sin paquetes. Sin precios en la web.</h2>
+    <p class="section-lede reveal delay-2 placeholder-copy" style="color:rgba(10,10,10,.6)">
+      Lorem ipsum: cada cuerpo es distinto, cada agenda también. Por eso no hay tarifas cerradas.
+      El precio se decide cuando entendemos qué necesitas exactamente.
+    </p>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="num">Uno</div>
+        <div>
+          <h3>Reservas una llamada de 15 minutos</h3>
+          <p>Lorem ipsum: una conversación honesta. Cuéntame tu cuerpo, tus lesiones, tu disponibilidad y qué has probado antes.</p>
+        </div>
+      </div>
+      <div class="step reveal delay-1">
+        <div class="num">Dos</div>
+        <div>
+          <h3>Diseñamos juntos un plan a tu medida</h3>
+          <p>Lorem ipsum: frecuencia, enfoque, lesiones a tratar y objetivos. Cada caso es único; tu plan también.</p>
+        </div>
+      </div>
+      <div class="step reveal delay-2">
+        <div class="num">Tres</div>
+        <div>
+          <h3>Empezamos</h3>
+          <p>Lorem ipsum: sesiones uno-a-uno en la sala de Amposta o donde lo necesites. Sin paquetes estándar, sin compromisos forzados.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="note reveal delay-3">
+      Hablamos primero. Decidimos juntos si tiene sentido empezar.
+    </p>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="block cta" id="reserva">
+  <div class="container">
+    <p class="eyebrow reveal">El siguiente paso</p>
+    <h2 class="reveal delay-1">Si tu cuerpo te está pidiendo otra cosa, hablemos.</h2>
+    <a href="https://wa.me/34654639006?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20llamada%20de%2015%20minutos%20para%20hablar%20sobre%20clases%20particulares%20de%20yoga." target="_blank" rel="noreferrer" class="btn reveal delay-2">Reserva una llamada por WhatsApp</a>
+    <p class="small reveal delay-3">15 minutos · Sin compromiso</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><img src="assets/logo.png" alt="Yogashala Particular"></div>
+        <p class="foot-loc">Amposta</p>
+      </div>
+      <div class="foot-right">
+        <a href="mailto:yogashala@particular.com">yogashala@particular.com</a>
+        <a href="https://yogashala.com" target="_blank" rel="noreferrer" class="external">Clases grupales y online → yogashala.com</a>
+      </div>
+    </div>
+    <div class="copy">© <span id="year"></span></div>
+  </div>
+</footer>
+
+<script>
+/* ============ TIMELINE DATA ============ */
+const TIMELINE_EVENTS = [
+  {year:1996, p:"Las primeras clases",        pd:"Lorem ipsum: comienzo del camino.", w:"Internet doméstico", wd:"El acceso a la red llega a los hogares."},
+  {year:2001, p:"Formación en India",          pd:"Lorem ipsum: estudio intensivo en Rishikesh.", w:"11 de septiembre", wd:"Una nueva era de incertidumbre."},
+  {year:2007, p:"Primera sala propia",         pd:"Lorem ipsum: primer espacio dedicado en Amposta.", w:"Llega el iPhone", wd:"Apple redefine la atención."},
+  {year:2010, p:"Certificación internacional", pd:"Lorem ipsum: E-RYT 500. Más de 2.000 horas.", w:"Instagram nace", wd:"El silencio empieza a ser raro."},
+  {year:2015, p:"Trabajo terapéutico",         pd:"Lorem ipsum: enfoque en lesiones articulares.", w:"Acuerdo de París", wd:"Compromiso climático histórico.", imageKey:"2015"},
+  {year:2018, p:"Método propio",               pd:"Lorem ipsum: método propio para articulaciones.", w:"Salud mental global", wd:"La OMS alerta sobre el burnout.", imageKey:"2018"},
+  {year:2019, p:"Primeros clientes VIP",       pd:"Lorem ipsum: clases para agendas exigentes.", w:"Greta en la ONU", wd:"Una nueva voz toma el escenario.", imageKey:"2019"},
+  {year:2020, p:"Acompañamiento online",       pd:"Lorem ipsum: trabajo terapéutico durante el confinamiento.", w:"COVID-19", wd:"El cuerpo y la respiración vuelven al centro.", imageKey:"2020"},
+  {year:2023, p:"Solo clases particulares",    pd:"Lorem ipsum: dedicación total al uno-a-uno.", w:"IA generativa", wd:"La presencia humana gana valor.", imageKey:"2023"},
+  {year:2026, p:"Hoy",                         pd:"Lorem ipsum: 30 años destilados en un trabajo a medida.", w:"Una era de ruido", wd:"El silencio se convierte en lujo."},
+];
+
+/* ============ TIMELINE RENDER ============ */
+(function renderTimeline(){
+  const track = document.getElementById('timelineTrack');
+  const html = TIMELINE_EVENTS.map(ev => {
+    const personalImg = ev.imageKey
+      ? `<div class="tl-img"><img src="assets/personal-${ev.imageKey}.jpg" alt="${ev.p}" loading="lazy"></div>`
+      : `<div class="tl-img empty"><span>${ev.year}</span></div>`;
+    const worldImg = `<div class="tl-img empty"><span style="font-size:14px;letter-spacing:.4em;color:rgba(245,240,232,.3)">${ev.year}</span></div>`;
+    return `
+    <article class="timeline-card">
+      <div class="tl-marker"><div class="tl-dot"></div><div class="tl-year">${ev.year}</div></div>
+      <div class="tl-block personal">
+        ${personalImg}
+        <p class="tl-tag">Ella</p>
+        <h3>${ev.p}</h3>
+        <p>${ev.pd}</p>
+      </div>
+      <div class="tl-block world">
+        ${worldImg}
+        <p class="tl-tag">El mundo</p>
+        <h3>${ev.w}</h3>
+        <p>${ev.wd}</p>
+      </div>
+    </article>`;
+  }).join('');
+  track.innerHTML = html;
+})();
+
+/* ============ HERO CANVAS — frame-by-frame estilo Apple ============ */
+(function heroFrames(){
+  const FRAME_COUNT = 160;
+  const FRAME_PATH = i => `assets/frames/frame-${String(i).padStart(4,'0')}.jpg`;
+
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d', {alpha:false});
+  const fallback = document.getElementById('heroFallback');
+  const hero = document.querySelector('.scroll-video-hero');
+  const progressFill = document.getElementById('progressFill');
+  const heroContent = document.getElementById('heroContent');
+  const heroLoading = document.getElementById('heroLoading');
+  const heroPct = document.getElementById('heroPct');
+
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  function sizeCanvas(){
+    canvas.width = Math.floor(canvas.offsetWidth * dpr);
+    canvas.height = Math.floor(canvas.offsetHeight * dpr);
+  }
+  sizeCanvas();
+  window.addEventListener('resize', sizeCanvas);
+
+  // Dibuja una imagen cubriendo el canvas (object-fit: cover)
+  function drawCover(img){
+    if(!img || !img.complete || !img.naturalWidth) return;
+    const cw = canvas.width, ch = canvas.height;
+    const ir = img.naturalWidth / img.naturalHeight;
+    const cr = cw / ch;
+    let dw, dh, dx, dy;
+    if(ir > cr){ dh = ch; dw = ch * ir; dx = (cw - dw)/2; dy = 0; }
+    else      { dw = cw; dh = cw / ir; dx = 0; dy = (ch - dh)/2; }
+    ctx.drawImage(img, dx, dy, dw, dh);
+  }
+
+  // Cargar frames en orden de prioridad: primero los pares (cada 2),
+  // luego rellenar los impares. Así el usuario tiene "todo el recorrido"
+  // visible cuanto antes con menos espera.
+  const images = new Array(FRAME_COUNT);
+  let loaded = 0;
+  let lastDrawn = -1;
+  let canHide = false;
+
+  function tick(){
+    if(images[0]?.complete) drawCover(images[0]); // primer frame visible cuanto antes
+  }
+
+  function loadOrder(){
+    const order = [];
+    for(let i = 0; i < FRAME_COUNT; i += 2) order.push(i);
+    for(let i = 1; i < FRAME_COUNT; i += 2) order.push(i);
+    return order;
+  }
+
+  loadOrder().forEach(i => {
+    const img = new Image();
+    img.decoding = 'async';
+    img.onload = () => {
+      loaded++;
+      const pct = Math.round(loaded/FRAME_COUNT*100);
+      if(heroPct) heroPct.textContent = pct;
+      if(i === 0){ fallback.style.opacity = '0'; drawCover(img); }
+      if(loaded >= 18 && !canHide){
+        // En cuanto haya ~15% cargado dejamos al usuario ver el primer frame
+        canHide = true;
+      }
+      if(loaded === FRAME_COUNT){ heroLoading.classList.add('done'); }
+      // Si el frame que toca dibujar ya está, redibujamos
+      if(i === lastDrawn) drawCover(img);
+    };
+    img.onerror = () => { /* ignore */ };
+    img.src = FRAME_PATH(i);
+    images[i] = img;
+  });
+
+  // Scroll → frame
+  const reduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  function update(){
+    const rect = hero.getBoundingClientRect();
+    const scrolled = -rect.top;
+    const scrollable = Math.max(1, hero.offsetHeight - window.innerHeight);
+    let progress = 0;
+    if(scrolled <= 0) progress = 0;
+    else if(scrolled >= scrollable) progress = 1;
+    else progress = scrolled / scrollable;
+
+    /* Mapeo no lineal: el último 18% del scroll lo "congelamos" en el último
+       frame, para que el plano final (la profesora) quede visible y se pueda
+       leer el título encima. */
+    const FREEZE_FROM = 0.82;
+    const frameProgress = progress < FREEZE_FROM ? progress / FREEZE_FROM : 1;
+    const idx = Math.min(FRAME_COUNT-1, Math.floor(frameProgress * (FRAME_COUNT-1)));
+    if(idx !== lastDrawn){
+      // Dibuja el frame más cercano disponible para evitar saltos en blanco
+      let chosen = idx;
+      let img = images[chosen];
+      if(!img || !img.complete){
+        for(let off=1; off<FRAME_COUNT; off++){
+          const a = images[idx-off], b = images[idx+off];
+          if(a && a.complete){ chosen = idx-off; img = a; break; }
+          if(b && b.complete){ chosen = idx+off; img = b; break; }
+        }
+      }
+      if(img && img.complete){ drawCover(img); lastDrawn = idx; }
+    }
+
+    progressFill.style.width = (progress*100)+'%';
+    /* El título empieza a aparecer cuando entramos en zona "freeze" para que
+       coincida con el plano final, donde se ve claro a la profesora. */
+    heroContent.classList.toggle('in', progress > 0.7);
+    /* Intensidad del overlay oscuro: aumenta al final para que el título lea
+       sin pelearse con la imagen. */
+    document.querySelector('.hero-overlay').style.background =
+      progress > 0.7
+      ? `linear-gradient(180deg,rgba(0,0,0,${.20+progress*.15}) 0%,rgba(0,0,0,${.10+progress*.25}) 35%,rgba(0,0,0,${.55+progress*.20}) 100%)`
+      : `linear-gradient(180deg,rgba(0,0,0,.20) 0%,rgba(0,0,0,.05) 35%,rgba(0,0,0,.55) 100%)`;
+  }
+
+  let ticking = false;
+  function onScroll(){
+    if(!ticking){ requestAnimationFrame(()=>{ update(); ticking=false; }); ticking=true; }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', update);
+
+  // Móvil: en lugar del canvas pesado, mostramos solo el primer frame estático
+  if(window.matchMedia('(max-width:768px)').matches || reduced){
+    heroContent.classList.add('in');
+  }
+
+  update();
+})();
+
+/* ============ TIMELINE HORIZONTAL PIN ============ */
+(function timelinePin(){
+  const section = document.querySelector('.timeline-section');
+  const track = document.getElementById('timelineTrack');
+  const header = document.getElementById('timelineHeader');
+  if(!section || !track) return;
+
+  const isMobile = () => window.matchMedia('(max-width:768px)').matches;
+
+  function update(){
+    if(isMobile()){ track.style.transform=''; header.classList.remove('dim'); return; }
+    const rect = section.getBoundingClientRect();
+    const scrolled = -rect.top;
+    const scrollable = section.offsetHeight - window.innerHeight;
+    if(scrolled < 0 || scrollable <= 0){ track.style.transform='translate3d(0,0,0)'; header.classList.remove('dim'); return; }
+    const progress = Math.min(1, Math.max(0, scrolled/scrollable));
+    const distance = track.scrollWidth - window.innerWidth;
+    track.style.transform = `translate3d(${-progress*distance}px,0,0)`;
+    header.classList.toggle('dim', progress > 0.06 && progress < 0.94);
+
+    document.querySelectorAll('.timeline-card').forEach(card=>{
+      const cardRect = card.getBoundingClientRect();
+      const inView = cardRect.left < window.innerWidth*0.85 && cardRect.right > window.innerWidth*0.15;
+      card.querySelectorAll('.tl-block').forEach(b=>b.classList.toggle('in', inView));
+    });
+  }
+  let ticking = false;
+  window.addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(()=>{ update(); ticking=false; }); ticking=true; } }, {passive:true});
+  window.addEventListener('resize', update);
+  update();
+
+  if(isMobile()){
+    const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }),{threshold:.2});
+    document.querySelectorAll('.tl-block').forEach(b=>io.observe(b));
+  }
+})();
+
+/* ============ REVEAL ============ */
+(function reveal(){
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.15,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+})();
+
+/* ============ NAV ============ */
+(function navState(){
+  const nav = document.getElementById('nav');
+  const update = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', update, {passive:true});
+  update();
+})();
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# macOS
+.DS_Store
+
+# Vídeo original sin procesar (los frames extraídos ya están en assets/frames/)
+assets/hero.mov
+assets/hero.mp4
