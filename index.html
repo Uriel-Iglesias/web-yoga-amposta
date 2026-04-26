@@ -424,6 +424,24 @@ section.light .eyebrow{color:#9a7d3a}
 }
 @media(min-width:900px){.her-intro p{font-size:28px}}
 .her-intro .meta{margin-top:14px;font-family:var(--sans);font-style:normal;font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold)}
+/* Stats — números monumentales que respaldan el silencio */
+.her-stats{
+  display:grid;grid-template-columns:1fr;gap:24px;
+  margin:0 0 48px;padding:32px 0 36px;
+  border-top:1px solid rgba(245,240,232,.08);
+  border-bottom:1px solid rgba(245,240,232,.08);
+}
+@media(min-width:640px){.her-stats{grid-template-columns:1fr 1fr;gap:32px;padding:40px 0;margin-bottom:64px}}
+.her-stats .stat{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.her-stats .stat-num{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(46px,11vw,80px);
+  line-height:1;color:var(--gold);letter-spacing:-.02em;
+}
+.her-stats .stat-label{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);font-weight:400;line-height:1.5;
+}
 .her-grid{display:grid;grid-template-columns:1fr;gap:14px}
 .her-item{position:relative;overflow:hidden;background:#1a1a1a;aspect-ratio:4/5}
 .her-item img{width:100%;height:100%;object-fit:cover;filter:brightness(.94);transition:transform 1.2s var(--ease),filter .6s var(--ease)}
@@ -734,6 +752,17 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
       <p>Treinta años de trabajo, en silencio.</p>
       <p class="meta">La práctica · Amposta</p>
     </div>
+
+    <div class="her-stats reveal delay-1" aria-label="Cifras de su trayectoria">
+      <div class="stat">
+        <span class="stat-num">+3.000</span>
+        <span class="stat-label">alumnos en clases particulares</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">+10.000</span>
+        <span class="stat-label">alumnos en total a lo largo de 30 años</span>
+      </div>
+    </div>
     <div class="her-grid">
       <div class="her-item g1 reveal"><img src="assets/foto-web-1.jpg" alt="Profesora practicando yoga en su sala de Amposta" loading="lazy" decoding="async" width="1600" height="1200"></div>
       <div class="her-item g2 reveal delay-1"><img src="assets/foto-web-2.jpg" alt="Detalle de una postura terapéutica de la profesora" loading="lazy" decoding="async" width="1200" height="1200"></div>
@@ -747,8 +776,11 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
 <!-- ============ FOR WHOM ============ -->
 <section class="block forwhom-section" id="para-quien">
   <div class="container">
-    <p class="eyebrow reveal">Selección</p>
+    <p class="eyebrow reveal">Paso 1 · Comprueba si encajas</p>
     <h2 class="section-h2 reveal delay-1">Esto no es para todo el mundo.</h2>
+    <p class="section-lede reveal delay-2 placeholder-copy">
+      Antes de hablar de cómo trabajamos, asegúrate de que tu situación encaja en uno de estos tres perfiles. Si te reconoces, sigue. Si no, también está bien.
+    </p>
     <div class="forwhom-meta reveal delay-2">
       <span>Plazas limitadas</span>
       <span class="dot"></span>
@@ -788,10 +820,10 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
 <!-- ============ HOW ============ -->
 <section class="block light" id="proceso">
   <div class="container">
-    <p class="eyebrow reveal">Cómo funciona</p>
-    <h2 class="section-h2 reveal delay-1">Tres pasos. Sin paquetes.</h2>
+    <p class="eyebrow reveal">Paso 2 · Si encajas, así empezamos</p>
+    <h2 class="section-h2 reveal delay-1">Tres pasos hasta tu primera sesión.</h2>
     <p class="section-lede reveal delay-2 placeholder-copy" style="color:rgba(10,10,10,.6)">
-      Cada cuerpo es distinto, cada agenda también. Por eso no hay tarifas cerradas. El precio se decide cuando entendemos qué necesitas exactamente.
+      No hay paquetes cerrados ni tarifas en la web. Cada cuerpo y cada agenda son únicos. El precio se decide cuando entendemos qué necesitas. Aquí tienes el camino exacto desde que reservas la llamada hasta que empezamos.
     </p>
 
     <div class="steps">
@@ -887,7 +919,7 @@ const TIMELINE_EVENTS = [
   {year:2019, p:"Primeros clientes VIP", pd:"Clases particulares para perfiles con agendas exigentes y nada de tiempo para ruido.", w:"Greta en la ONU", wd:"Una nueva voz pide silencio al mundo.", imageKey:"2019"},
   {year:2020, p:"Acompañamiento online", pd:"Continuidad del trabajo terapéutico durante el confinamiento, sin perder el uno-a-uno.", w:"COVID-19", wd:"El mundo se detiene. El cuerpo vuelve al centro.", imageKey:"2020"},
   {year:2023, p:"Solo clases particulares", pd:"Decisión de dedicar la mayor parte del tiempo a sesiones uno-a-uno.", w:"IA generativa", wd:"La máquina aprende a hablar. La presencia humana gana valor.", imageKey:"2023"},
-  {year:2026, p:"Hoy", pd:"Treinta años destilados en un trabajo a medida para muy pocos.", w:"La era del ruido", wd:"Más datos, menos atención. El silencio se convierte en lujo."},
+  {year:2026, p:"Hoy", pd:"Treinta años destilados en un trabajo a medida para muy pocos.", w:"La era del ruido", wd:"Más datos, menos atención. El silencio se convierte en lujo.", imageKey:"2026"},
 ];
 
 (function renderTimeline(){
