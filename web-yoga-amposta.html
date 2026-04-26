@@ -298,7 +298,13 @@ section.light .eyebrow{color:#9a7d3a}
 .timeline-card{position:relative;padding-left:28px}
 /* Marker: solo el punto en la línea vertical (sin texto al lado, evita solapamiento) */
 .tl-marker{position:absolute;left:0;top:14px}
-.tl-dot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(201,169,97,.08)}
+.tl-dot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(201,169,97,.08);transition:box-shadow .8s var(--ease),transform .8s var(--ease)}
+/* En mobile, las cards entran con fade + slide horizontal sutil al verse */
+@media(max-width:899px){
+  .timeline-card{opacity:0;transform:translateX(-14px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .timeline-card.in{opacity:1;transform:translateX(0)}
+  .timeline-card.in .tl-dot{box-shadow:0 0 0 8px rgba(201,169,97,.12);transform:scale(1.05)}
+}
 /* Año: ahora es un heading propio ENCIMA de la imagen (no compite con ella) */
 .tl-year{
   display:block;
@@ -598,7 +604,7 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
 /* Reduce motion */
 @media(prefers-reduced-motion:reduce){
   *{animation:none !important;transition:none !important}
-  .reveal{opacity:1;transform:none}
+  .reveal,.timeline-card{opacity:1 !important;transform:none !important}
 }
 </style>
 </head>
