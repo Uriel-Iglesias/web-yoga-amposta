@@ -504,18 +504,28 @@ section.light .eyebrow{color:#9a7d3a}
 .cta .small{margin-top:20px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
 
 /* ============ FOOTER ============ */
-footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
+footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:relative}
 @media(min-width:768px){footer{padding:80px 0 48px}}
-.foot-grid{display:flex;flex-direction:column;gap:28px}
-@media(min-width:768px){.foot-grid{flex-direction:row;align-items:flex-end;justify-content:space-between}}
+.foot-flank{display:block;width:48px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:.5;margin-bottom:36px}
+.foot-grid{display:flex;flex-direction:column;gap:32px}
+@media(min-width:768px){.foot-grid{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:48px}}
 .foot-brand img{height:40px;width:auto;filter:brightness(0) invert(1);opacity:.9}
-.foot-loc{margin-top:12px;font-size:13px;color:var(--muted)}
-.foot-right{display:flex;flex-direction:column;gap:10px;font-size:14px}
-@media(min-width:768px){.foot-right{align-items:flex-end}}
+.foot-loc{margin-top:14px;font-size:13px;color:var(--muted);letter-spacing:.02em}
+.foot-tagline{margin-top:16px;font-family:var(--serif);font-style:italic;font-size:16px;color:rgba(245,240,232,.45);font-weight:300;line-height:1.4;max-width:280px}
+.foot-right{display:flex;flex-direction:column;gap:12px;font-size:14px}
+@media(min-width:768px){.foot-right{align-items:flex-end;text-align:right}}
 .foot-right a{color:var(--muted);transition:color .35s var(--ease)}
 .foot-right a:active,.foot-right a:hover{color:var(--cream)}
+.foot-right .foot-wa{font-size:13px;letter-spacing:.04em;color:var(--cream);font-weight:400}
+.foot-right .foot-wa:hover{color:var(--gold)}
 .foot-right .external{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:rgba(245,240,232,.35)}
-.copy{margin-top:36px;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(245,240,232,.2)}
+.foot-bottom{
+  margin-top:48px;padding-top:24px;border-top:1px solid rgba(245,240,232,.06);
+  display:flex;flex-direction:column;gap:8px;
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(245,240,232,.2);
+}
+@media(min-width:768px){.foot-bottom{flex-direction:row;align-items:center;justify-content:space-between}}
+.foot-bottom .copy-r{color:rgba(201,169,97,.4)}
 
 /* ============ REVEAL ============ */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
@@ -798,17 +808,23 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
 <!-- ============ FOOTER ============ -->
 <footer>
   <div class="container">
+    <span class="foot-flank" aria-hidden="true"></span>
     <div class="foot-grid">
       <div>
         <div class="foot-brand"><img src="assets/logo.png" alt="Yogashala Particular"></div>
         <p class="foot-loc">Amposta</p>
+        <p class="foot-tagline">Treinta años. Una sola forma de trabajar.</p>
       </div>
       <div class="foot-right">
+        <a href="https://wa.me/34654639006?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20llamada%20de%2015%20minutos%20para%20hablar%20sobre%20clases%20particulares%20de%20yoga." target="_blank" rel="noreferrer" class="foot-wa">WhatsApp · 654 639 006</a>
         <a href="mailto:yogashala@particular.com">yogashala@particular.com</a>
         <a href="https://yogashala.com" target="_blank" rel="noreferrer" class="external">Clases grupales y online → yogashala.com</a>
       </div>
     </div>
-    <div class="copy">© <span id="year"></span></div>
+    <div class="foot-bottom">
+      <span class="copy">© <span id="year"></span> · Yogashala Particular</span>
+      <span class="copy-r">Reservas únicamente por entrevista</span>
+    </div>
   </div>
 </footer>
 
