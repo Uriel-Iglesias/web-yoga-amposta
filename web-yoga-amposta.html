@@ -271,7 +271,9 @@ section.light .eyebrow{color:#9a7d3a}
   font-size:clamp(96px, 30vw, 240px);   /* clamp más conservador: no desborda viewports estrechos */
   line-height:.85;color:var(--gold);
   letter-spacing:.04em;
-  /* Cada letra entra con leve fade (efecto "se posan en su sitio") */
+  /* Sombra sutil dorada que da sensación de presencia/halo sin ser
+     un drop-shadow pesado — solo aporta profundidad atmosférica */
+  text-shadow:0 0 60px rgba(201,169,97,.18), 0 2px 4px rgba(0,0,0,.4);
 }
 .roman .x{display:inline-block;opacity:0;transform:translateY(12px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .timeline-header.in .roman .x{opacity:1;transform:translateY(0)}
