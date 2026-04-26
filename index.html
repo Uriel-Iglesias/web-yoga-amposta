@@ -257,9 +257,17 @@ section.light .eyebrow{color:#9a7d3a}
 .tl-personal .tl-img{aspect-ratio:4/5;max-height:62vh}
 .tl-personal .tl-img img{width:100%;height:100%;object-fit:cover;opacity:.96}
 .tl-img.empty{display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#1a1a1a,#0d0d0d);border:1px solid rgba(245,240,232,.06)}
-.tl-img.empty::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(201,169,97,.06),transparent 60%)}
-.tl-img.empty span{position:relative;z-index:1;font-family:var(--serif);font-size:42px;color:rgba(201,169,97,.42);font-weight:300}
-.tl-img.empty.world span{font-size:14px;letter-spacing:.4em;color:rgba(245,240,232,.3);font-family:var(--sans)}
+/* Frame del vídeo como background atmosférico (muy oscurecido, blurred): aporta textura
+   sin ser una afirmación visual literal sobre el año. Solo en personal placeholders. */
+.tl-img.empty .bg-frame{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:grayscale(.9) brightness(.32) blur(1px) contrast(1.05);
+  opacity:.55;mix-blend-mode:luminosity;
+}
+.tl-img.empty.world .bg-frame{display:none}
+.tl-img.empty::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,rgba(201,169,97,.10),transparent 60%),linear-gradient(180deg,rgba(10,10,10,.3),rgba(10,10,10,.5))}
+.tl-img.empty span{position:relative;z-index:2;font-family:var(--serif);font-size:48px;color:rgba(201,169,97,.6);font-weight:300;letter-spacing:.01em;text-shadow:0 2px 24px rgba(0,0,0,.6)}
+.tl-img.empty.world span{font-size:14px;letter-spacing:.4em;color:rgba(245,240,232,.3);font-family:var(--sans);text-shadow:none}
 
 .tl-tag{margin-top:14px;font-size:9px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold)}
 .tl-personal h3{margin-top:6px;font-size:21px;color:var(--cream);line-height:1.18}
@@ -448,6 +456,21 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
 .reveal.delay-2{transition-delay:.12s}
 .reveal.delay-3{transition-delay:.18s}
 
+/* ============ SECTION ORNAMENT (separador VIP) ============ */
+.ornament{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  width:200px;margin:0 auto;
+  opacity:0;transform:translateY(8px);
+  transition:opacity 1s var(--ease),transform 1s var(--ease);
+}
+.ornament.in{opacity:.65;transform:none}
+.ornament .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.ornament .diamond{width:5px;height:5px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
+.ornament-bridge-dark{background:var(--bg);padding:64px 0}
+.ornament-bridge-light{background:var(--cream);padding:64px 0}
+.ornament-bridge-light .line{background:linear-gradient(90deg,transparent,#9a7d3a,transparent)}
+.ornament-bridge-light .diamond{background:#9a7d3a}
+
 /* Reduce motion */
 @media(prefers-reduced-motion:reduce){
   *{animation:none !important;transition:none !important}
@@ -540,6 +563,10 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
     </div>
   </div>
 </section>
+
+<div class="ornament-bridge-dark" aria-hidden="true">
+  <div class="ornament reveal"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+</div>
 
 <!-- ============ ELLA ============ -->
 <section class="her-section" id="ella">
@@ -636,6 +663,10 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
   </div>
 </section>
 
+<div class="ornament-bridge-dark" aria-hidden="true">
+  <div class="ornament reveal"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+</div>
+
 <!-- ============ FINAL CTA ============ -->
 <section class="block cta" id="reserva">
   <div class="container">
@@ -683,10 +714,16 @@ const TIMELINE_EVENTS = [
 
 (function renderTimeline(){
   const track = document.getElementById('timelineTrack');
+  /* Frames decorativos para placeholders sin foto real. Mapping año → índice de frame.
+     Se renderizan muy oscurecidos: textura, no documentación. */
+  const placeholderFrame = {
+    1996: '0010', 2001: '0028', 2007: '0052', 2010: '0080', 2026: '0150',
+  };
   track.innerHTML = TIMELINE_EVENTS.map(ev => {
+    const fr = placeholderFrame[ev.year] || '0079';
     const personalImg = ev.imageKey
-      ? `<div class="tl-img"><img src="assets/personal-${ev.imageKey}.jpg" alt="${ev.p}" loading="lazy"></div>`
-      : `<div class="tl-img empty"><span>${ev.year}</span></div>`;
+      ? `<div class="tl-img"><img src="assets/personal-${ev.imageKey}.jpg" alt="${ev.p} — Yogashala Particular en ${ev.year}" loading="lazy" decoding="async"></div>`
+      : `<div class="tl-img empty"><img class="bg-frame" src="assets/frames/frame-${fr}.jpg" alt="" aria-hidden="true" loading="lazy"><span>${ev.year}</span></div>`;
     return `
     <article class="timeline-card">
       <div class="tl-marker">
