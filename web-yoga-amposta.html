@@ -309,7 +309,9 @@ section.light .eyebrow{color:#9a7d3a}
 .tl-personal.text-only{padding-top:8px;padding-bottom:4px;border-left:1px solid rgba(201,169,97,.4);padding-left:18px;margin-left:-2px}
 .tl-img{width:100%;background:#161616;overflow:hidden;position:relative}
 .tl-personal .tl-img{aspect-ratio:4/5;max-height:62vh}
-.tl-personal .tl-img img{width:100%;height:100%;object-fit:cover;opacity:.96}
+.tl-personal .tl-img img{width:100%;height:100%;object-fit:cover;opacity:.96;object-position:center top}
+.tl-personal .tl-img img[src*="2023"]{object-position:center 25%}
+.tl-personal .tl-img img[src*="2020"]{object-position:center 30%}
 
 .tl-tag{margin-top:14px;font-size:9px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold)}
 .tl-personal h3{margin-top:6px;font-size:21px;color:var(--cream);line-height:1.18}
@@ -409,6 +411,10 @@ section.light .eyebrow{color:#9a7d3a}
 .her-grid{display:grid;grid-template-columns:1fr;gap:14px}
 .her-item{position:relative;overflow:hidden;background:#1a1a1a;aspect-ratio:4/5}
 .her-item img{width:100%;height:100%;object-fit:cover;filter:brightness(.94);transition:transform 1.2s var(--ease),filter .6s var(--ease)}
+/* Re-encuadrar fotos donde la cara queda fuera del crop por defecto */
+.her-item.g3 img{object-position:center 18%}
+.her-item.g5 img{object-position:center 20%}
+.her-item.g1 img,.her-item.g2 img,.her-item.g4 img{object-position:center 30%}
 @media(min-width:768px){
   .her-grid{grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(160px,auto);gap:20px}
   .her-eyebrow{margin-bottom:64px}
@@ -622,7 +628,7 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
     <p class="hero-sub">Amposta · 30 años · 1 a 1</p>
     <a href="https://wa.me/34654639006?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20llamada%20de%2015%20minutos%20para%20hablar%20sobre%20clases%20particulares%20de%20yoga."
        target="_blank" rel="noreferrer" class="hero-mobile-cta">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.83 11.83 0 0 1 3.487 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.687-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.692 5.42L4.043 19.74l3.611-1.547zm10.412-7.464c-.061-.103-.227-.165-.475-.29-.248-.123-1.466-.722-1.693-.806-.227-.082-.392-.124-.557.124-.165.247-.639.804-.783.97-.144.165-.288.186-.535.062-.247-.124-1.045-.385-1.99-1.227-.736-.654-1.232-1.464-1.376-1.71-.144-.247-.015-.379.108-.502.111-.111.247-.288.371-.432.124-.144.165-.247.247-.412.082-.165.041-.309-.021-.433-.061-.124-.557-1.34-.764-1.835-.201-.482-.405-.416-.557-.424-.144-.007-.309-.009-.474-.009a.911.911 0 0 0-.66.309c-.227.247-.866.846-.866 2.063s.887 2.392 1.011 2.557c.124.165 1.745 2.665 4.227 3.737.59.255 1.052.408 1.41.522.593.188 1.132.162 1.557.099.475-.07 1.466-.6 1.673-1.18.207-.578.207-1.075.144-1.18z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01zM12.04 20.15h-.01a8.21 8.21 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c-.01 4.54-3.7 8.24-8.23 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23a7.42 7.42 0 0 1-1.38-1.71c-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.84-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.74 2.66 4.23 3.73.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.46-.28z"/></svg>
       Reservar llamada
     </a>
   </div>
@@ -792,7 +798,7 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
     <h2 class="reveal delay-1">Si tu cuerpo te está pidiendo otra cosa, hablemos.</h2>
     <a href="https://wa.me/34654639006?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20llamada%20de%2015%20minutos%20para%20hablar%20sobre%20clases%20particulares%20de%20yoga."
        target="_blank" rel="noreferrer" class="btn reveal delay-2">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.83 11.83 0 0 1 3.487 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.687-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.692 5.42L4.043 19.74l3.611-1.547zm10.412-7.464c-.061-.103-.227-.165-.475-.29-.248-.123-1.466-.722-1.693-.806-.227-.082-.392-.124-.557.124-.165.247-.639.804-.783.97-.144.165-.288.186-.535.062-.247-.124-1.045-.385-1.99-1.227-.736-.654-1.232-1.464-1.376-1.71-.144-.247-.015-.379.108-.502.111-.111.247-.288.371-.432.124-.144.165-.247.247-.412.082-.165.041-.309-.021-.433-.061-.124-.557-1.34-.764-1.835-.201-.482-.405-.416-.557-.424-.144-.007-.309-.009-.474-.009a.911.911 0 0 0-.66.309c-.227.247-.866.846-.866 2.063s.887 2.392 1.011 2.557c.124.165 1.745 2.665 4.227 3.737.59.255 1.052.408 1.41.522.593.188 1.132.162 1.557.099.475-.07 1.466-.6 1.673-1.18.207-.578.207-1.075.144-1.18z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01zM12.04 20.15h-.01a8.21 8.21 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c-.01 4.54-3.7 8.24-8.23 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23a7.42 7.42 0 0 1-1.38-1.71c-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.84-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.74 2.66 4.23 3.73.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.46-.28z"/></svg>
       Reservar por WhatsApp
     </a>
     <p class="small reveal delay-3">15 minutos · Sin compromiso · Plazas limitadas</p>
@@ -802,7 +808,7 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
 <!-- ============ FLOATING WHATSAPP PILL (mobile) ============ -->
 <a href="https://wa.me/34654639006?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20llamada%20de%2015%20minutos%20para%20hablar%20sobre%20clases%20particulares%20de%20yoga."
    target="_blank" rel="noreferrer" id="floatWa" class="float-wa" aria-label="Reservar llamada por WhatsApp">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.83 11.83 0 0 1 3.487 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.687-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.692 5.42L4.043 19.74l3.611-1.547zm10.412-7.464c-.061-.103-.227-.165-.475-.29-.248-.123-1.466-.722-1.693-.806-.227-.082-.392-.124-.557.124-.165.247-.639.804-.783.97-.144.165-.288.186-.535.062-.247-.124-1.045-.385-1.99-1.227-.736-.654-1.232-1.464-1.376-1.71-.144-.247-.015-.379.108-.502.111-.111.247-.288.371-.432.124-.144.165-.247.247-.412.082-.165.041-.309-.021-.433-.061-.124-.557-1.34-.764-1.835-.201-.482-.405-.416-.557-.424-.144-.007-.309-.009-.474-.009a.911.911 0 0 0-.66.309c-.227.247-.866.846-.866 2.063s.887 2.392 1.011 2.557c.124.165 1.745 2.665 4.227 3.737.59.255 1.052.408 1.41.522.593.188 1.132.162 1.557.099.475-.07 1.466-.6 1.673-1.18.207-.578.207-1.075.144-1.18z"/></svg>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01zM12.04 20.15h-.01a8.21 8.21 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c-.01 4.54-3.7 8.24-8.23 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23a7.42 7.42 0 0 1-1.38-1.71c-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.84-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.74 2.66 4.23 3.73.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.46-.28z"/></svg>
 </a>
 
 <!-- ============ FOOTER ============ -->
@@ -818,7 +824,7 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
       <div class="foot-right">
         <a href="https://wa.me/34654639006?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20llamada%20de%2015%20minutos%20para%20hablar%20sobre%20clases%20particulares%20de%20yoga." target="_blank" rel="noreferrer" class="foot-wa">WhatsApp · 654 639 006</a>
         <a href="mailto:yogashala@particular.com">yogashala@particular.com</a>
-        <a href="https://yogashala.com" target="_blank" rel="noreferrer" class="external">Clases grupales y online → yogashala.com</a>
+        <a href="https://iogashala.com" target="_blank" rel="noreferrer" class="external">Clases grupales y online → iogashala.com</a>
       </div>
     </div>
     <div class="foot-bottom">
@@ -832,10 +838,11 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
 const TIMELINE_EVENTS = [
   {year:1996, p:"Las primeras clases", pd:"Comienzo del camino. Primer maestro, primera práctica diaria, primer alumno.", w:"Internet llega a casa", wd:"El mundo se hace digital. Ella elige el silencio."},
   {year:2002, p:"Formación · Grupo de aprendizaje", pd:"Estudio intensivo con maestros y alumnos. La fotografía más antigua que conserva: un grupo en blanco, al sol.", w:"Cambio al euro", wd:"Una moneda nueva. Una práctica antigua.", imageKey:"2002"},
-  {year:2007, p:"Primera sala propia", pd:"Apertura del primer espacio dedicado en Amposta.", w:"El primer iPhone", wd:"La atención se vuelve un bien escaso."},
+  {year:2007, p:"Primera sala propia · Nace Uriel", pd:"Apertura del primer espacio dedicado en Amposta. Ese mismo año nace Uriel, su primer hijo. La práctica y la maternidad empiezan a moverse al mismo ritmo.", w:"El primer iPhone", wd:"La atención se vuelve un bien escaso."},
+  {year:2009, p:"Nace Tomás", pd:"Llega su segundo hijo. La sala sigue, los alumnos siguen. Aprende que el yoga también es presencia entre dos noches sin dormir.", w:"Crisis financiera", wd:"El mundo se replantea lo esencial."},
   {year:2010, p:"Certificación internacional", pd:"E-RYT 500. Más de 2.000 horas de formación reglada.", w:"Instagram", wd:"El cuerpo empieza a vivirse en pantalla."},
-  {year:2015, p:"Trabajo terapéutico", pd:"Enfoque consolidado en lesiones articulares y movilidad funcional.", w:"Acuerdo de París", wd:"El planeta firma un pacto. Ella, otro: precisión.", imageKey:"2015"},
-  {year:2018, p:"Método propio", pd:"Sistematización de un método propio para articulaciones, lesiones y movilidad.", w:"Burnout global", wd:"La OMS lo declara epidemia. La práctica se vuelve refugio.", imageKey:"2018"},
+  {year:2014, p:"Trabajo terapéutico", pd:"Enfoque consolidado en lesiones articulares y movilidad funcional.", w:"Lesiones invisibles", wd:"El mundo trabaja sentado. El cuerpo pasa factura.", imageKey:"2014"},
+  {year:2015, p:"Refinamiento del método", pd:"Más horas con menos alumnos. La práctica se afila.", w:"Acuerdo de París", wd:"El planeta firma un pacto. Ella, otro: precisión.", imageKey:"2015"},
   {year:2019, p:"Primeros clientes VIP", pd:"Clases particulares para perfiles con agendas exigentes y nada de tiempo para ruido.", w:"Greta en la ONU", wd:"Una nueva voz pide silencio al mundo.", imageKey:"2019"},
   {year:2020, p:"Acompañamiento online", pd:"Continuidad del trabajo terapéutico durante el confinamiento, sin perder el uno-a-uno.", w:"COVID-19", wd:"El mundo se detiene. El cuerpo vuelve al centro.", imageKey:"2020"},
   {year:2023, p:"Solo clases particulares", pd:"Decisión de dedicar la mayor parte del tiempo a sesiones uno-a-uno.", w:"IA generativa", wd:"La máquina aprende a hablar. La presencia humana gana valor.", imageKey:"2023"},
