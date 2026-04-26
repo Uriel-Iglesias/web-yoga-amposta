@@ -554,6 +554,26 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
 .reveal.delay-2{transition-delay:.10s}
 .reveal.delay-3{transition-delay:.15s}
 
+/* ============ SCROLL TO TOP (mobile + desktop, discreto) ============ */
+.float-top{
+  position:fixed;z-index:47;
+  left:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(10,10,10,.55);color:var(--cream);
+  border:1px solid rgba(245,240,232,.18);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  opacity:0;transform:translateY(12px);pointer-events:none;
+  transition:opacity .5s var(--ease),transform .5s var(--ease),background .35s var(--ease),border-color .35s var(--ease);
+}
+.float-top.show{opacity:.92;transform:translateY(0);pointer-events:auto}
+.float-top:hover,.float-top:focus-visible{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.float-top svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+@media(min-width:900px){
+  .float-top{left:24px;bottom:24px;width:46px;height:46px}
+  .float-top svg{width:15px;height:15px}
+}
+
 /* ============ FLOATING WHATSAPP PILL (mobile) ============ */
 .float-wa{
   position:fixed;z-index:48;
@@ -819,6 +839,11 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
   </div>
 </section>
 
+<!-- ============ FLOATING SCROLL-TO-TOP ============ -->
+<button id="floatTop" class="float-top" type="button" aria-label="Volver al inicio">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
 <!-- ============ FLOATING WHATSAPP PILL (mobile) ============ -->
 <a href="https://wa.me/34654639006?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20llamada%20de%2015%20minutos%20para%20hablar%20sobre%20clases%20particulares%20de%20yoga."
    target="_blank" rel="noreferrer" id="floatWa" class="float-wa" aria-label="Reservar llamada por WhatsApp">
@@ -1020,6 +1045,13 @@ const isDesktop = () => window.matchMedia('(min-width:900px)').matches;
       const inFinalCta = reserva && reserva.getBoundingClientRect().top < window.innerHeight * .7;
       wa.classList.toggle('show', past && !inFinalCta);
     }
+    const topBtn = document.getElementById('floatTop');
+    if(topBtn){
+      // Aparece cuando se ha pasado del 55% de la página
+      const max = (document.documentElement.scrollHeight - window.innerHeight) || 1;
+      const pct = window.scrollY / max;
+      topBtn.classList.toggle('show', pct > 0.55);
+    }
   };
   window.addEventListener('scroll', update, {passive:true});
   window.addEventListener('resize', update);
@@ -1050,9 +1082,9 @@ const isDesktop = () => window.matchMedia('(min-width:900px)').matches;
   const io = new IntersectionObserver(es => {
     es.forEach(e => {
       if(e.isIntersecting){
-        links.forEach(l => l.classList.remove('active'));
+        links.forEach(l => { l.classList.remove('active'); l.removeAttribute('aria-current'); });
         const link = map.get(e.target);
-        if(link) link.classList.add('active');
+        if(link){ link.classList.add('active'); link.setAttribute('aria-current','location'); }
       }
     });
   }, {rootMargin:'-40% 0px -55% 0px', threshold:0});
@@ -1084,6 +1116,15 @@ const isDesktop = () => window.matchMedia('(min-width:900px)').matches;
   // Intento al cargar y al volver a la pestaña visible
   if(v.readyState >= 2) tryPlay(); else v.addEventListener('loadeddata', tryPlay, {once:true});
   document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && v.paused) tryPlay(); });
+})();
+
+/* Scroll-to-top click handler */
+(function topBtn(){
+  const btn = document.getElementById('floatTop');
+  if(!btn) return;
+  btn.addEventListener('click', () => {
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
 })();
 
 document.getElementById('year').textContent = new Date().getFullYear();
