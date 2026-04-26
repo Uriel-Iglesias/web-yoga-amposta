@@ -44,7 +44,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="assets/frames/frame-0079.jpg">
+<link rel="preload" as="image" href="assets/frames/frame-0079.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
@@ -636,7 +636,7 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
 
 <nav class="nav" id="nav" aria-label="Navegación principal">
   <div class="container nav-inner">
-    <a href="#top" class="brand" aria-label="Yogashala Particular — inicio"><img src="assets/logo.png" alt="" aria-hidden="true"></a>
+    <a href="#top" class="brand" aria-label="Yogashala Particular — inicio"><img src="assets/logo.png" alt="" aria-hidden="true" width="280" height="120" fetchpriority="high" decoding="async"></a>
     <div class="nav-links">
       <a href="#timeline">Trayectoria</a>
       <a href="#filosofia">Método</a>
@@ -653,7 +653,7 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
   <div class="hero-media">
     <video src="assets/hero-mobile.mp4"
            poster="assets/frames/frame-0079.jpg"
-           autoplay muted loop playsinline preload="auto"
+           autoplay muted loop playsinline preload="metadata"
            aria-hidden="true"></video>
   </div>
   <div class="hero-overlay"></div>
@@ -856,7 +856,7 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:48px 0 28px;position:r
     <span class="foot-flank" aria-hidden="true"></span>
     <div class="foot-grid">
       <div>
-        <div class="foot-brand"><img src="assets/logo.png" alt="Yogashala Particular"></div>
+        <div class="foot-brand"><img src="assets/logo.png" alt="Yogashala Particular" width="280" height="120" loading="lazy" decoding="async"></div>
         <p class="foot-loc">Amposta</p>
         <p class="foot-tagline">Treinta años. Una sola forma de trabajar.</p>
       </div>
