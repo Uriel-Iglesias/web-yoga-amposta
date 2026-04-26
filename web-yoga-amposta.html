@@ -257,14 +257,20 @@ section.light .eyebrow{color:#9a7d3a}
 }
 .timeline-header{margin-bottom:48px;text-align:center}
 .timeline-header .eyebrow{display:block;margin-bottom:8px}
+/* Wrapper del numeral romano — flanqueado por dos líneas finas doradas como ornamento */
+.roman-wrap{
+  display:flex;align-items:center;justify-content:center;gap:18px;
+  margin:8px 0 4px;
+}
+.roman-wrap .flank{flex:1;height:1px;max-width:80px;background:linear-gradient(90deg,transparent,var(--gold) 40%,var(--gold) 60%,transparent);opacity:.55}
+@media(max-width:380px){.roman-wrap .flank{max-width:24px}}
 /* Treinta años en NUMERAL ROMANO monumental — protagonista visual de la sección */
 .roman{
   display:block;
   font-family:var(--serif);font-weight:300;
-  font-size:clamp(120px, 38vw, 260px);
+  font-size:clamp(96px, 30vw, 240px);   /* clamp más conservador: no desborda viewports estrechos */
   line-height:.85;color:var(--gold);
-  letter-spacing:.06em;
-  margin:6px 0 4px;
+  letter-spacing:.04em;
   /* Cada letra entra con leve fade (efecto "se posan en su sitio") */
 }
 .roman .x{display:inline-block;opacity:0;transform:translateY(12px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
@@ -643,9 +649,11 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
     <div class="timeline-header" id="timelineHeader">
       <div class="container">
         <p class="eyebrow">Trayectoria</p>
+        <div class="roman-wrap" aria-hidden="true"><span class="flank"></span></div>
         <h2 class="roman" aria-label="Treinta">
           <span class="x">X</span><span class="x">X</span><span class="x">X</span>
         </h2>
+        <div class="roman-wrap" aria-hidden="true"><span class="flank"></span></div>
         <p class="roman-sub">años</p>
         <span class="roman-range">1996 — 2026</span>
       </div>
