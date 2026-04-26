@@ -255,13 +255,30 @@ section.light .eyebrow{color:#9a7d3a}
   padding:80px 0;
   position:relative;
 }
-.timeline-header{margin-bottom:40px}
-.timeline-header h2{
-  margin-top:10px;
-  font-size:clamp(30px,7vw,56px);
-  letter-spacing:-.012em;
+.timeline-header{margin-bottom:48px;text-align:center}
+.timeline-header .eyebrow{display:block;margin-bottom:8px}
+/* Treinta años en NUMERAL ROMANO monumental — protagonista visual de la sección */
+.roman{
+  display:block;
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(120px, 38vw, 260px);
+  line-height:.85;color:var(--gold);
+  letter-spacing:.06em;
+  margin:6px 0 4px;
+  /* Cada letra entra con leve fade (efecto "se posan en su sitio") */
 }
-.timeline-header h2 em{color:var(--gold);font-style:normal;font-weight:400}
+.roman .x{display:inline-block;opacity:0;transform:translateY(12px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.timeline-header.in .roman .x{opacity:1;transform:translateY(0)}
+.timeline-header.in .roman .x:nth-child(2){transition-delay:.18s}
+.timeline-header.in .roman .x:nth-child(3){transition-delay:.36s}
+.roman-sub{
+  font-family:var(--sans);font-size:11px;letter-spacing:.5em;text-transform:uppercase;
+  color:var(--cream);opacity:.7;margin-top:14px;
+}
+.roman-range{
+  display:block;font-family:var(--serif);font-style:italic;font-size:16px;color:rgba(245,240,232,.55);
+  margin-top:6px;font-weight:300;letter-spacing:.04em;
+}
 
 /* MOBILE: stacked cards verticales con línea izquierda */
 .timeline-track{
@@ -272,15 +289,18 @@ section.light .eyebrow{color:#9a7d3a}
   content:"";position:absolute;left:calc(var(--pad-x) + 5px);top:8px;bottom:8px;width:1px;
   background:linear-gradient(180deg,transparent,rgba(245,240,232,.18) 4%,rgba(245,240,232,.18) 96%,transparent);
 }
-.timeline-card{position:relative;padding-left:36px}
-.tl-marker{position:absolute;left:0;top:6px;display:flex;align-items:center;gap:14px}
-.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 6px rgba(201,169,97,.08)}
+.timeline-card{position:relative;padding-left:28px}
+/* Marker: solo el punto en la línea vertical (sin texto al lado, evita solapamiento) */
+.tl-marker{position:absolute;left:0;top:14px}
+.tl-dot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(201,169,97,.08)}
+/* Año: ahora es un heading propio ENCIMA de la imagen (no compite con ella) */
 .tl-year{
-  font-family:var(--serif);font-size:32px;font-weight:300;color:var(--cream);
-  line-height:1;letter-spacing:-.01em;margin-left:4px;
+  display:block;
+  font-family:var(--serif);font-size:38px;font-weight:300;color:var(--cream);
+  line-height:1;letter-spacing:-.012em;margin-bottom:18px;
 }
-.tl-personal{margin-top:24px}
-.tl-personal.text-only{margin-top:18px;padding:18px 0 4px;border-left:1px solid rgba(201,169,97,.4);padding-left:18px}
+.tl-personal{margin-top:0}
+.tl-personal.text-only{padding-top:8px;padding-bottom:4px;border-left:1px solid rgba(201,169,97,.4);padding-left:18px;margin-left:-2px}
 .tl-img{width:100%;background:#161616;overflow:hidden;position:relative}
 .tl-personal .tl-img{aspect-ratio:4/5;max-height:62vh}
 .tl-personal .tl-img img{width:100%;height:100%;object-fit:cover;opacity:.96}
@@ -318,6 +338,9 @@ section.light .eyebrow{color:#9a7d3a}
     transition:opacity .8s var(--ease),transform .8s var(--ease);
   }
   .timeline-header.dim{opacity:0;transform:translateY(-12px)}
+  /* En desktop el banner está absolute encima del track: el XXX se reduce */
+  .timeline-header .roman{font-size:clamp(72px,9vw,128px)}
+  .timeline-header{text-align:left}
   .timeline-track{
     position:absolute;top:0;left:0;height:100%;
     flex-direction:row;align-items:center;
@@ -378,11 +401,17 @@ section.light .eyebrow{color:#9a7d3a}
 .philosophy-grid p{font-size:15px;line-height:1.7;color:rgba(10,10,10,.7);font-style:italic}
 
 /* ============ HER ============ */
-.her-section{background:var(--bg);padding:72px 0}
+.her-section{background:var(--bg);padding:48px 0 64px}
 @media(min-width:900px){.her-section{padding:18vh 0 16vh}}
-.her-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:32px}
-.her-eyebrow .line{flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);max-width:120px}
-.her-eyebrow span{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--gold);font-weight:400}
+.her-intro{margin-bottom:28px;max-width:520px}
+@media(min-width:900px){.her-intro{margin-bottom:64px}}
+.her-intro .line{height:1px;width:64px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:20px}
+.her-intro p{
+  font-family:var(--serif);font-style:italic;font-size:22px;font-weight:400;
+  color:var(--cream);line-height:1.35;letter-spacing:-.005em;
+}
+@media(min-width:900px){.her-intro p{font-size:28px}}
+.her-intro .meta{margin-top:14px;font-family:var(--sans);font-style:normal;font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold)}
 .her-grid{display:grid;grid-template-columns:1fr;gap:14px}
 .her-item{position:relative;overflow:hidden;background:#1a1a1a;aspect-ratio:4/5}
 .her-item img{width:100%;height:100%;object-fit:cover;filter:brightness(.94);transition:transform 1.2s var(--ease),filter .6s var(--ease)}
@@ -538,8 +567,12 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
 .ornament.in{opacity:.65;transform:none}
 .ornament .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .ornament .diamond{width:5px;height:5px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
-.ornament-bridge-dark{background:var(--bg);padding:64px 0}
-.ornament-bridge-light{background:var(--cream);padding:64px 0}
+.ornament-bridge-dark{background:var(--bg);padding:24px 0}
+.ornament-bridge-light{background:var(--cream);padding:24px 0}
+@media(min-width:900px){
+  .ornament-bridge-dark{padding:64px 0}
+  .ornament-bridge-light{padding:64px 0}
+}
 .ornament-bridge-light .line{background:linear-gradient(90deg,transparent,#9a7d3a,transparent)}
 .ornament-bridge-light .diamond{background:#9a7d3a}
 
@@ -610,7 +643,11 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
     <div class="timeline-header" id="timelineHeader">
       <div class="container">
         <p class="eyebrow">Trayectoria</p>
-        <h2><em data-count-to="30">0</em> años</h2>
+        <h2 class="roman" aria-label="Treinta">
+          <span class="x">X</span><span class="x">X</span><span class="x">X</span>
+        </h2>
+        <p class="roman-sub">años</p>
+        <span class="roman-range">1996 — 2026</span>
       </div>
     </div>
     <div class="timeline-track" id="timelineTrack"></div>
@@ -640,12 +677,13 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
   <div class="ornament reveal"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
 </div>
 
-<!-- ============ ELLA ============ -->
+<!-- ============ ELLA — intro + galería ============ -->
 <section class="her-section" id="ella">
   <div class="container">
-    <div class="her-eyebrow reveal">
+    <div class="her-intro reveal">
       <div class="line"></div>
-      <span>Ella</span>
+      <p>Treinta años de trabajo, en silencio.</p>
+      <p class="meta">La práctica · Amposta</p>
     </div>
     <div class="her-grid">
       <div class="her-item g1 reveal"><img src="assets/foto-web-1.jpg" alt="Profesora practicando yoga en su sala de Amposta" loading="lazy" decoding="async" width="1600" height="1200"></div>
@@ -799,10 +837,8 @@ const TIMELINE_EVENTS = [
     const personalClass = ev.imageKey ? 'tl-personal has-img' : 'tl-personal text-only';
     return `
     <article class="timeline-card${ev.imageKey ? '' : ' no-img'}">
-      <div class="tl-marker">
-        <div class="tl-dot"></div>
-        <div class="tl-year">${ev.year}</div>
-      </div>
+      <div class="tl-marker"><div class="tl-dot"></div></div>
+      <span class="tl-year">${ev.year}</span>
       <div class="${personalClass}">
         ${personalImg}
         <p class="tl-tag">Ella</p>
@@ -953,6 +989,16 @@ const isDesktop = () => window.matchMedia('(min-width:900px)').matches;
   window.addEventListener('scroll', update, {passive:true});
   window.addEventListener('resize', update);
   update();
+})();
+
+/* ============ TIMELINE HEADER REVEAL (XXX letter stagger) ============ */
+(function timelineHeaderReveal(){
+  const h = document.getElementById('timelineHeader');
+  if(!h) return;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if(e.isIntersecting){ h.classList.add('in'); io.unobserve(e.target); }
+  }), {threshold:.3});
+  io.observe(h);
 })();
 
 /* ============ COUNT-UP ============
