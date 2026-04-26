@@ -599,11 +599,11 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
       <span>Ella</span>
     </div>
     <div class="her-grid">
-      <div class="her-item g1 reveal"><img src="assets/foto-web-1.jpg" alt="Profesora practicando yoga en su sala de Amposta" loading="lazy" decoding="async"></div>
-      <div class="her-item g2 reveal delay-1"><img src="assets/foto-web-2.jpg" alt="Detalle de una postura terapéutica de la profesora" loading="lazy" decoding="async"></div>
-      <div class="her-item g3 reveal delay-2"><img src="assets/foto-web-3.jpg" alt="La profesora en silencio durante una sesión" loading="lazy" decoding="async"></div>
-      <div class="her-item g4 reveal delay-1"><img src="assets/foto-web-4.jpg" alt="Sesión particular de yoga terapéutico" loading="lazy" decoding="async"></div>
-      <div class="her-item g5 reveal delay-2"><img src="assets/foto-web-5.jpg" alt="La profesora trabajando movilidad articular" loading="lazy" decoding="async"></div>
+      <div class="her-item g1 reveal"><img src="assets/foto-web-1.jpg" alt="Profesora practicando yoga en su sala de Amposta" loading="lazy" decoding="async" width="1600" height="1200"></div>
+      <div class="her-item g2 reveal delay-1"><img src="assets/foto-web-2.jpg" alt="Detalle de una postura terapéutica de la profesora" loading="lazy" decoding="async" width="1200" height="1200"></div>
+      <div class="her-item g3 reveal delay-2"><img src="assets/foto-web-3.jpg" alt="La profesora en silencio durante una sesión" loading="lazy" decoding="async" width="1200" height="1200"></div>
+      <div class="her-item g4 reveal delay-1"><img src="assets/foto-web-4.jpg" alt="Sesión particular de yoga terapéutico" loading="lazy" decoding="async" width="1500" height="1000"></div>
+      <div class="her-item g5 reveal delay-2"><img src="assets/foto-web-5.jpg" alt="La profesora trabajando movilidad articular" loading="lazy" decoding="async" width="1500" height="1000"></div>
     </div>
   </div>
 </section>
@@ -751,8 +751,8 @@ const TIMELINE_EVENTS = [
   track.innerHTML = TIMELINE_EVENTS.map(ev => {
     const fr = placeholderFrame[ev.year] || '0079';
     const personalImg = ev.imageKey
-      ? `<div class="tl-img"><img src="assets/personal-${ev.imageKey}.jpg" alt="${ev.p} — Yogashala Particular en ${ev.year}" loading="lazy" decoding="async"></div>`
-      : `<div class="tl-img empty"><img class="bg-frame" src="assets/frames/frame-${fr}.jpg" alt="" aria-hidden="true" loading="lazy"><span>${ev.year}</span></div>`;
+      ? `<div class="tl-img"><img src="assets/personal-${ev.imageKey}.jpg" alt="${ev.p} — Yogashala Particular en ${ev.year}" loading="lazy" decoding="async" width="1200" height="1500"></div>`
+      : `<div class="tl-img empty"><img class="bg-frame" src="assets/frames/frame-${fr}.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1500" height="844"><span>${ev.year}</span></div>`;
     return `
     <article class="timeline-card">
       <div class="tl-marker">
@@ -910,6 +910,33 @@ const isDesktop = () => window.matchMedia('(min-width:900px)').matches;
   window.addEventListener('scroll', update, {passive:true});
   window.addEventListener('resize', update);
   update();
+})();
+
+/* ============ HERO VIDEO MOBILE FALLBACK ============
+   Algunos iOS / navegadores con ahorro de datos bloquean autoplay incluso con muted+playsinline.
+   Detectamos el rejectment y mostramos un overlay sutil de "tap to play". */
+(function heroVideoFallback(){
+  const v = document.querySelector('.hero-media video');
+  if(!v) return;
+  const tryPlay = () => {
+    const p = v.play();
+    if(p && p.catch) p.catch(()=>showTapHint());
+  };
+  function showTapHint(){
+    if(document.getElementById('heroTapHint')) return;
+    const hint = document.createElement('button');
+    hint.id = 'heroTapHint';
+    hint.setAttribute('aria-label','Reproducir vídeo');
+    hint.style.cssText = 'position:absolute;inset:0;z-index:5;background:transparent;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;';
+    hint.innerHTML = '<span style="display:flex;align-items:center;gap:10px;padding:14px 22px;border:1px solid rgba(201,169,97,.7);background:rgba(10,10,10,.45);backdrop-filter:blur(8px);font-size:11px;letter-spacing:.28em;text-transform:uppercase">'+
+      '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'+
+      'Reproducir</span>';
+    hint.addEventListener('click', () => { v.play().then(()=>hint.remove()).catch(()=>{}); });
+    document.querySelector('.hero').appendChild(hint);
+  }
+  // Intento al cargar y al volver a la pestaña visible
+  if(v.readyState >= 2) tryPlay(); else v.addEventListener('loadeddata', tryPlay, {once:true});
+  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && v.paused) tryPlay(); });
 })();
 
 document.getElementById('year').textContent = new Date().getFullYear();
