@@ -310,18 +310,6 @@ section.light .eyebrow{color:#9a7d3a}
 .tl-img{width:100%;background:#161616;overflow:hidden;position:relative}
 .tl-personal .tl-img{aspect-ratio:4/5;max-height:62vh}
 .tl-personal .tl-img img{width:100%;height:100%;object-fit:cover;opacity:.96}
-.tl-img.empty{display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#1a1a1a,#0d0d0d);border:1px solid rgba(245,240,232,.06)}
-/* Frame del vídeo como background atmosférico (muy oscurecido, blurred): aporta textura
-   sin ser una afirmación visual literal sobre el año. Solo en personal placeholders. */
-.tl-img.empty .bg-frame{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  filter:grayscale(.9) brightness(.32) blur(1px) contrast(1.05);
-  opacity:.55;mix-blend-mode:luminosity;
-}
-.tl-img.empty.world .bg-frame{display:none}
-.tl-img.empty::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,rgba(201,169,97,.10),transparent 60%),linear-gradient(180deg,rgba(10,10,10,.3),rgba(10,10,10,.5))}
-.tl-img.empty span{position:relative;z-index:2;font-family:var(--serif);font-size:48px;color:rgba(201,169,97,.6);font-weight:300;letter-spacing:.01em;text-shadow:0 2px 24px rgba(0,0,0,.6)}
-.tl-img.empty.world span{font-size:14px;letter-spacing:.4em;color:rgba(245,240,232,.3);font-family:var(--sans);text-shadow:none}
 
 .tl-tag{margin-top:14px;font-size:9px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold)}
 .tl-personal h3{margin-top:6px;font-size:21px;color:var(--cream);line-height:1.18}
@@ -492,6 +480,7 @@ section.light .eyebrow{color:#9a7d3a}
 
 /* ============ CTA ============ */
 .cta{text-align:center}
+.cta-flank{display:block;width:48px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto;opacity:.6}
 .cta h2{font-size:clamp(34px,7.5vw,80px);max-width:1000px;margin:22px auto 0;text-wrap:balance;line-height:1.05}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:12px;
@@ -788,14 +777,15 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
 <!-- ============ FINAL CTA ============ -->
 <section class="block cta" id="reserva">
   <div class="container">
-    <p class="eyebrow reveal">El siguiente paso</p>
+    <span class="cta-flank reveal" aria-hidden="true"></span>
+    <p class="eyebrow reveal" style="margin-top:24px">El siguiente paso</p>
     <h2 class="reveal delay-1">Si tu cuerpo te está pidiendo otra cosa, hablemos.</h2>
     <a href="https://wa.me/34654639006?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20llamada%20de%2015%20minutos%20para%20hablar%20sobre%20clases%20particulares%20de%20yoga."
        target="_blank" rel="noreferrer" class="btn reveal delay-2">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.83 11.83 0 0 1 3.487 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.687-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.692 5.42L4.043 19.74l3.611-1.547zm10.412-7.464c-.061-.103-.227-.165-.475-.29-.248-.123-1.466-.722-1.693-.806-.227-.082-.392-.124-.557.124-.165.247-.639.804-.783.97-.144.165-.288.186-.535.062-.247-.124-1.045-.385-1.99-1.227-.736-.654-1.232-1.464-1.376-1.71-.144-.247-.015-.379.108-.502.111-.111.247-.288.371-.432.124-.144.165-.247.247-.412.082-.165.041-.309-.021-.433-.061-.124-.557-1.34-.764-1.835-.201-.482-.405-.416-.557-.424-.144-.007-.309-.009-.474-.009a.911.911 0 0 0-.66.309c-.227.247-.866.846-.866 2.063s.887 2.392 1.011 2.557c.124.165 1.745 2.665 4.227 3.737.59.255 1.052.408 1.41.522.593.188 1.132.162 1.557.099.475-.07 1.466-.6 1.673-1.18.207-.578.207-1.075.144-1.18z"/></svg>
       Reservar por WhatsApp
     </a>
-    <p class="small reveal delay-3">15 minutos · Sin compromiso</p>
+    <p class="small reveal delay-3">15 minutos · Sin compromiso · Plazas limitadas</p>
   </div>
 </section>
 
@@ -1007,30 +997,6 @@ const isDesktop = () => window.matchMedia('(min-width:900px)').matches;
     if(e.isIntersecting){ h.classList.add('in'); io.unobserve(e.target); }
   }), {threshold:.3});
   io.observe(h);
-})();
-
-/* ============ COUNT-UP ============
-   Cualquier elemento con [data-count-to=N] anima de 0 → N al entrar en viewport. */
-(function countUp(){
-  const els = document.querySelectorAll('[data-count-to]');
-  if(!els.length) return;
-  const reduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  const animate = el => {
-    const target = parseInt(el.dataset.countTo, 10);
-    if(reduced){ el.textContent = target; return; }
-    const dur = 1400, start = performance.now();
-    const tick = (now) => {
-      const t = Math.min(1, (now - start) / dur);
-      const eased = 1 - Math.pow(1 - t, 3);
-      el.textContent = Math.round(eased * target);
-      if(t < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    if(e.isIntersecting){ animate(e.target); io.unobserve(e.target); }
-  }), {threshold:.5});
-  els.forEach(el => io.observe(el));
 })();
 
 /* ============ ACTIVE NAV INDICATOR (desktop) ============
