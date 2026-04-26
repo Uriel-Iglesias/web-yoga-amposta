@@ -207,6 +207,11 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:300;letter-spacing:-.012em;line
   .hero-desktop{display:block;position:relative;height:420vh}
   .hero-desktop-sticky{position:sticky;top:0;height:100vh;width:100%;overflow:hidden;background:#000}
   #heroCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;background:#000}
+  /* Vignette cinemática: oscurece bordes y esquinas para concentrar la mirada en el centro */
+  .hero-desktop-sticky::after{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,.55) 100%);
+  }
   .hero-desktop .hero-content{
     padding:0 24px 14vh;
     opacity:0;transform:translateY(20px);animation:none;
@@ -746,16 +751,16 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
 
 <script>
 const TIMELINE_EVENTS = [
-  {year:1996, p:"Las primeras clases", pd:"Comienzo del camino. Primer maestro, primera práctica diaria, primer alumno.", w:"Internet doméstico", wd:"El acceso a la red llega a los hogares."},
-  {year:2001, p:"Formación en India", pd:"Estudio intensivo en Rishikesh con maestros tradicionales.", w:"11 de septiembre", wd:"Una nueva era de incertidumbre."},
-  {year:2007, p:"Primera sala propia", pd:"Apertura del primer espacio dedicado en Amposta.", w:"Llega el iPhone", wd:"Apple redefine la atención."},
-  {year:2010, p:"Certificación internacional", pd:"E-RYT 500. Más de 2.000 horas formales.", w:"Instagram nace", wd:"El silencio empieza a ser raro."},
-  {year:2015, p:"Trabajo terapéutico", pd:"Enfoque consolidado en lesiones articulares.", w:"Acuerdo de París", wd:"Compromiso climático histórico.", imageKey:"2015"},
-  {year:2018, p:"Método propio", pd:"Consolidación de un método propio para articulaciones y movilidad.", w:"Salud mental global", wd:"La OMS alerta sobre ansiedad y burnout en aumento.", imageKey:"2018"},
-  {year:2019, p:"Primeros clientes VIP", pd:"Clases particulares para perfiles con agendas exigentes.", w:"Greta en la ONU", wd:"Una nueva voz toma el escenario.", imageKey:"2019"},
-  {year:2020, p:"Acompañamiento online", pd:"Continuidad del trabajo terapéutico durante el confinamiento.", w:"COVID-19", wd:"El cuerpo y la respiración vuelven al centro.", imageKey:"2020"},
-  {year:2023, p:"Solo clases particulares", pd:"Decisión de dedicar la mayor parte del tiempo a uno-a-uno.", w:"IA generativa", wd:"La presencia humana gana valor.", imageKey:"2023"},
-  {year:2026, p:"Hoy", pd:"Treinta años destilados en un trabajo a medida para muy pocos.", w:"Una era de ruido", wd:"El silencio se convierte en lujo."},
+  {year:1996, p:"Las primeras clases", pd:"Comienzo del camino. Primer maestro, primera práctica diaria, primer alumno.", w:"Internet llega a casa", wd:"El mundo se hace digital. Ella elige el silencio."},
+  {year:2001, p:"Formación en India", pd:"Estudio intensivo en Rishikesh con maestros tradicionales.", w:"11-S", wd:"El mundo entra en duelo. Ella, en aprendizaje."},
+  {year:2007, p:"Primera sala propia", pd:"Apertura del primer espacio dedicado en Amposta.", w:"El primer iPhone", wd:"La atención se vuelve un bien escaso."},
+  {year:2010, p:"Certificación internacional", pd:"E-RYT 500. Más de 2.000 horas de formación reglada.", w:"Instagram", wd:"El cuerpo empieza a vivirse en pantalla."},
+  {year:2015, p:"Trabajo terapéutico", pd:"Enfoque consolidado en lesiones articulares y movilidad funcional.", w:"Acuerdo de París", wd:"El planeta firma un pacto. Ella, otro: precisión.", imageKey:"2015"},
+  {year:2018, p:"Método propio", pd:"Sistematización de un método propio para articulaciones, lesiones y movilidad.", w:"Burnout global", wd:"La OMS lo declara epidemia. La práctica se vuelve refugio.", imageKey:"2018"},
+  {year:2019, p:"Primeros clientes VIP", pd:"Clases particulares para perfiles con agendas exigentes y nada de tiempo para ruido.", w:"Greta en la ONU", wd:"Una nueva voz pide silencio al mundo.", imageKey:"2019"},
+  {year:2020, p:"Acompañamiento online", pd:"Continuidad del trabajo terapéutico durante el confinamiento, sin perder el uno-a-uno.", w:"COVID-19", wd:"El mundo se detiene. El cuerpo vuelve al centro.", imageKey:"2020"},
+  {year:2023, p:"Solo clases particulares", pd:"Decisión de dedicar la mayor parte del tiempo a sesiones uno-a-uno.", w:"IA generativa", wd:"La máquina aprende a hablar. La presencia humana gana valor.", imageKey:"2023"},
+  {year:2026, p:"Hoy", pd:"Treinta años destilados en un trabajo a medida para muy pocos.", w:"La era del ruido", wd:"Más datos, menos atención. El silencio se convierte en lujo."},
 ];
 
 (function renderTimeline(){
