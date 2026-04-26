@@ -280,6 +280,7 @@ section.light .eyebrow{color:#9a7d3a}
   line-height:1;letter-spacing:-.01em;margin-left:4px;
 }
 .tl-personal{margin-top:24px}
+.tl-personal.text-only{margin-top:18px;padding:18px 0 4px;border-left:1px solid rgba(201,169,97,.4);padding-left:18px}
 .tl-img{width:100%;background:#161616;overflow:hidden;position:relative}
 .tl-personal .tl-img{aspect-ratio:4/5;max-height:62vh}
 .tl-personal .tl-img img{width:100%;height:100%;object-fit:cover;opacity:.96}
@@ -767,7 +768,7 @@ footer{border-top:1px solid rgba(245,240,232,.08);padding:56px 0 32px}
 <script>
 const TIMELINE_EVENTS = [
   {year:1996, p:"Las primeras clases", pd:"Comienzo del camino. Primer maestro, primera práctica diaria, primer alumno.", w:"Internet llega a casa", wd:"El mundo se hace digital. Ella elige el silencio."},
-  {year:2001, p:"Formación en India", pd:"Estudio intensivo en Rishikesh con maestros tradicionales.", w:"11-S", wd:"El mundo entra en duelo. Ella, en aprendizaje."},
+  {year:2002, p:"Formación · Grupo de aprendizaje", pd:"Estudio intensivo con maestros y alumnos. La fotografía más antigua que conserva: un grupo en blanco, al sol.", w:"Cambio al euro", wd:"Una moneda nueva. Una práctica antigua.", imageKey:"2002"},
   {year:2007, p:"Primera sala propia", pd:"Apertura del primer espacio dedicado en Amposta.", w:"El primer iPhone", wd:"La atención se vuelve un bien escaso."},
   {year:2010, p:"Certificación internacional", pd:"E-RYT 500. Más de 2.000 horas de formación reglada.", w:"Instagram", wd:"El cuerpo empieza a vivirse en pantalla."},
   {year:2015, p:"Trabajo terapéutico", pd:"Enfoque consolidado en lesiones articulares y movilidad funcional.", w:"Acuerdo de París", wd:"El planeta firma un pacto. Ella, otro: precisión.", imageKey:"2015"},
@@ -780,30 +781,24 @@ const TIMELINE_EVENTS = [
 
 (function renderTimeline(){
   const track = document.getElementById('timelineTrack');
-  /* Frames decorativos para placeholders sin foto real. Mapping año → índice de frame.
-     Se renderizan muy oscurecidos: textura, no documentación. */
-  const placeholderFrame = {
-    1996: '0010', 2001: '0028', 2007: '0052', 2010: '0080', 2026: '0150',
-  };
   track.innerHTML = TIMELINE_EVENTS.map(ev => {
-    const fr = placeholderFrame[ev.year] || '0079';
     const personalImg = ev.imageKey
       ? `<div class="tl-img"><img src="assets/personal-${ev.imageKey}.jpg" alt="${ev.p} — Yogashala Particular en ${ev.year}" loading="lazy" decoding="async" width="1200" height="1500"></div>`
-      : `<div class="tl-img empty"><img class="bg-frame" src="assets/frames/frame-${fr}.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1500" height="844"><span>${ev.year}</span></div>`;
+      : '';
+    const personalClass = ev.imageKey ? 'tl-personal has-img' : 'tl-personal text-only';
     return `
-    <article class="timeline-card">
+    <article class="timeline-card${ev.imageKey ? '' : ' no-img'}">
       <div class="tl-marker">
         <div class="tl-dot"></div>
         <div class="tl-year">${ev.year}</div>
       </div>
-      <div class="tl-personal">
+      <div class="${personalClass}">
         ${personalImg}
         <p class="tl-tag">Ella</p>
         <h3>${ev.p}</h3>
         <p>${ev.pd}</p>
       </div>
       <div class="tl-world">
-        <div class="tl-img empty world"><span>${ev.year}</span></div>
         <p class="tl-tag">El mundo</p>
         <h4>${ev.w}</h4>
         <p>${ev.wd}</p>
