@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /assets/frames/
+Disallow: /assets/hero.mov
+
+Sitemap: https://uriel-iglesias.github.io/web-yoga-amposta/sitemap.xml

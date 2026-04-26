@@ -145,7 +145,8 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:300;letter-spacing:-.012em;line
 .hero{
   position:relative;
   width:100%;
-  height:100svh;
+  height:100vh;        /* fallback iOS < 15.4 */
+  height:100svh;       /* small viewport — evita el salto cuando la barra del browser baja */
   min-height:540px;
   overflow:hidden;
   background:#000;
@@ -157,6 +158,20 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:300;letter-spacing:-.012em;line
   background:
     linear-gradient(180deg,rgba(0,0,0,.30) 0%,rgba(0,0,0,.05) 35%,rgba(0,0,0,.55) 100%),
     radial-gradient(ellipse at 50% 100%,rgba(0,0,0,.5),transparent 60%);
+}
+
+/* Film grain cinemático: SVG turbulence inline como overlay translúcido */
+.hero::after{
+  content:"";
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.4 0 0 0 0 0.4 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  opacity:.10;mix-blend-mode:overlay;
+}
+.hero-desktop-sticky::before{
+  content:"";
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.4 0 0 0 0 0.4 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  opacity:.08;mix-blend-mode:overlay;
 }
 .hero-content{
   position:absolute;inset:0;z-index:3;
